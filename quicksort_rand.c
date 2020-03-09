@@ -10,11 +10,17 @@
 */
 #include <stdio.h>
 #include <stdbool.h>
+#include <stdlib.h>
+#include <time.h>
 
 int partition(int A[], int p, int r){
+  int i = (rand() % (r-p+1)) + p;
   int tmp;
+  tmp = A[i];
+  A[i] = A[r];
+  A[r] = tmp;
+  i = p - 1;
   int x = A[r];
-  int i = p - 1;
   for (int j = p; j < r; j++){
     if (A[j] <= x){
       i++;
@@ -38,10 +44,11 @@ void quicksort_aux(int A[], int p, int r){
 }
 
 void quicksort(int arr[], int len){
+  srand(time(NULL));
   quicksort_aux(arr, 0, len - 1);
 }
 
-void print_array(int arr[], int size){
+void printArray(int arr[], int size){
   int i;
   for (i=0; i < size; i++)
     printf("%d ", arr[i]);
@@ -51,7 +58,9 @@ void print_array(int arr[], int size){
 int main(){
   int arr[] = {10, 7, 8, 9, 1, 5, 13, 14, 2, 17, 21, 2, 3};
   int len = sizeof(arr)/sizeof(arr[0]);
+  printf("%d\n",len);
   quicksort(arr, len);
-  print_array(arr, len);
+  printf("Sorted array: \n");
+  printArray(arr, len);
   return 0;
 }
